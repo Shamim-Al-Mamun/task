@@ -4,7 +4,10 @@ import Hero from "../components/Hero";
 import Event from "../components/Event";
 import styles from "../styles/Home.module.css";
 
-export default function Home() {
+import client from "../apollo-client";
+import { gql } from "@apollo/client";
+
+export default function Home({ conferences }: any) {
   return (
     <div className={styles.container}>
       <Head>
@@ -14,7 +17,23 @@ export default function Home() {
       </Head>
 
       <Hero />
-      <Event />
+      <Event countries={conferences} />
     </div>
   );
 }
+
+Home.getInitialProps = async () => {
+
+  const { data } = await client.query({
+    query: gql`
+      query Conferences {
+        conferences {
+          id
+          name
+        }
+      }
+    `,
+  });
+
+  return { conferences: data?.conferences };
+};

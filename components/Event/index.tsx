@@ -3,43 +3,9 @@ import { GraphQLClient } from "graphql-request";
 import { gql } from "graphql-request";
 import { GetStaticProps } from "next";
 
-const endpoint = process.env.PREVIEW_EDGE_CH_ENDPOINT as string;
 
-const graphQLClient = new GraphQLClient(endpoint);
-graphQLClient.setHeader("X-GQL-Token", process.env.API_END_POINT as string);
-
-// Get all blogs
-export const GET_ALL = gql`
-  {
-    allM_Content_Blog {
-      results {
-        blog_Title
-        blog_Body
-      }
-    }
-  }
-`;
-
-// const data = await graphQLClient.request(GET_ALL);
-// export default graphQLClient;
-
-export async function getStaticProps() {
-  // Call an external API endpoint to get posts.
-  // You can use any data fetching library
-  const res = await fetch("https://jsonplaceholder.typicode.com/posts");
-  const posts = { 1: 3 };
-
-  // By returning { props: { posts } }, the Blog component
-  // will receive `posts` as a prop at build time
-  return {
-    props: {
-      posts,
-    },
-  };
-}
-
-function Event({ posts }: any) {
-  console.log(posts);
+function Event({ countries }: any) {
+  console.log(countries);
   return (
     <div>
       <div className="font-bold text-h4 md:text-h2 ">Event Schedule</div>
@@ -137,3 +103,4 @@ function Event({ posts }: any) {
 }
 
 export default Event;
+
