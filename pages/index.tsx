@@ -23,13 +23,13 @@ export default function Home({ conferences }: any) {
 }
 
 Home.getInitialProps = async () => {
-
   const { data } = await client.query({
     query: gql`
-      query Conferences {
+      query conferences {
         conferences {
-          id
-          name
+          schedules {
+            day
+          }
         }
       }
     `,
